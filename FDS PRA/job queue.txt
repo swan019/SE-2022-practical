@@ -1,0 +1,128 @@
+#include <iostream>
+using namespace std;
+class queue{
+    int *arr;
+    int rear;
+    int front;
+    int size;
+    
+    public:
+    queue(int size)
+    {
+        this->size = size;
+        arr = new int[size];
+        rear = front = 0;
+    }
+
+    void enqueue(int ele)
+    {
+        if(rear >= size)
+        {
+            cout << "QUEUE IS FULL" << endl;
+        
+        }else{
+           
+            arr[rear] = ele;
+            rear++;
+
+        }
+    }
+
+    void dequeue()
+    {
+        if(rear == front)
+        {
+            cout << "QUEUE IS EMPTY" << endl;
+        
+        }else{
+
+            arr[front] = -1;
+            front++;
+
+            if(front == rear)
+            {
+                rear = 0;
+                front = 0;
+            }
+
+        }
+    }
+
+    bool is_full()
+    {
+        if(rear == size)
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    int get_front()
+    {
+        if(rear == front)
+        {
+            cout << "QUEUE IS EMPTY " << endl;
+            return -1;
+
+        }else{
+
+            return arr[front];
+
+        }
+    }
+
+    void show()
+    {
+        int start = front;
+        int end = rear;
+        while(start < end)
+        {
+            cout << arr[start] << " ";
+            start++;
+        }
+
+        cout << endl;
+    }
+
+
+};
+
+int main()
+{
+       queue q(100);
+       char ch;
+       do{
+            cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+            cout << "1) insert job" << endl;
+            cout << "2) delete job" << endl;
+            cout << "3) display job" << endl;
+            int choise;
+            cout << "select option : " ;
+            cin >> choise;
+            cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+
+
+            switch(choise)
+            {
+                case 1 : int element;
+                         cout << "Insert Job : "; cin >>element; 
+                         q.enqueue(element);
+                         break;
+
+                case 2 : q.dequeue();
+                         cout << "Job remove " << endl;
+                         break;
+
+                case 3 : cout << "display : " ; q.show();
+                         break;
+                
+                default : cout << "Enter correct Choise " <<endl;
+            }
+
+            cout << "do you want to continue (y/s) ";
+            cin >> ch;
+
+       }while(ch == 'y' || ch == 'Y');
+
+}

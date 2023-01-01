@@ -1,0 +1,110 @@
+#include <iostream>
+using namespace std;
+class stack
+{
+    char *arr;
+    int size;
+    int top;
+
+public:
+    stack(int size)
+    {
+        this->size = size;
+        arr = new char[size];
+        top = -1;
+    }
+
+    void push(char ch)
+    {
+        top++;
+        arr[top] = ch;
+    }
+
+    void pop()
+    {
+        if (top < -1)
+        {
+            cout << "underflow" << endl;
+        }
+        else
+        {
+            top--;
+        }
+    }
+
+    char peek()
+    {
+        return arr[top];
+    }
+
+    bool empty()
+    {
+        if (top < 0)
+        {
+            return true;
+        }
+        else
+        {
+
+            return false;
+        }
+    }
+};
+
+int main()
+{
+    stack s(20);
+    string str;
+    cout << "----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "enter parenthesis : " << ;
+    cin >> str;
+
+    int flag = 0;
+
+    for (int i = 0; i < str.length(); ++i)
+    {
+        char ch = str[i];
+        if (ch == '(' || ch == '{' || ch == '[')
+        {
+            s.push(ch);
+        }
+        else
+        {
+
+            if (!s.empty())
+            {
+                if ((ch == ')' && s.peek() == '(') || (ch == '}' && s.peek() == '{') ||
+                    (ch == ']' && s.peek() == '['))
+                {
+
+                    s.pop();
+                }
+                else
+                {
+                   flag = 1;
+                   break;
+                }
+            }
+            else
+            {
+
+                 flag = 1;
+                 break;
+            }
+        }
+    }
+
+    if (s.empty() && flag == 0)
+    {
+        cout << "VALID PARENTHESIS" << endl;
+    }
+    else
+    {
+
+        cout << "NOT VALID PARENTHESIS" << endl;
+    }
+
+    cout << "----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+
+    return 0;
+}

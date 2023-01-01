@@ -1,0 +1,128 @@
+#include <iostream>
+using namespace std;
+class stack{
+    public:
+    int top;
+    int size;
+    char *arr;
+    stack(int size)
+    {
+        this->size = size;
+        arr = new char[size];
+        top = -1;
+    }
+
+    void push(char ch)
+    {
+        if(top > size - 1)
+        {
+            cout << "stack is full" << endl;
+        }else{
+
+            top++;
+            arr[top] = ch;
+
+        }
+    }
+
+    void pop()
+    {
+        if(top >= 0)
+        {
+            top--;
+        }else{
+            cout << "stack is empty" << endl;
+        }
+    }
+
+    char peak()
+    {
+        if(top < 0)
+        {
+            cout << "stack is empty" << endl;
+            return '0' ;
+
+        }else{
+
+            return arr[top];
+        }
+    }
+
+    bool empty()
+    {
+        if(top >= 0)
+        {
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+};
+
+string spaceRemove(string s)
+{
+    string x,z;
+    for(int i = 0; i < s.length(); ++i)
+    {
+        if(s[i] != ' ' && s[i] != '!' && s[i] != '@' && s[i] != '#' && s[i] != '$' && s[i] != '%' && s[i] != '^' && s[i] != '&' && s[i] != '*')
+        {
+            x.push_back(s[i]);
+        }
+    }
+    
+    for(int i = 0; i < x.length(); ++i)
+    {
+        if(x[i] >= 'a' && x[i] <= 'z')
+        {
+            z.push_back(x[i]);
+        }else{
+            char temp = x[i] - 'A' + 'a';
+            z.push_back(temp);
+        }
+    }
+    return z;
+}
+int main()
+{
+    stack st(100);
+
+    string str;
+    cout << "enter string : ";
+    getline(cin, str);
+   
+    string val = spaceRemove(str);
+
+    string ans;
+
+    for(int i = 0; i < val.length(); ++i)
+    {
+        char a = val[i];
+        st.push(a);
+    }
+
+    while(!st.empty())
+    {
+        char temp;
+        temp =  st.peak();
+        ans.push_back(temp);
+        st.pop();
+    }
+
+    cout << "-------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "original string : " << val << endl;
+    cout << "reversed string : " << ans << endl;
+
+    cout <<"--------------------------------------------------------------------------------------------------------------" << endl;
+  
+    if(ans == val)
+    {
+        cout << "string is pallindrom" << endl;
+    }else
+    {
+        cout << "string is not pallinrdom" << endl;
+    }
+
+    cout << "-------------------------------------------------------------------------------------------------------------" << endl;
+
+    return 0;
+}
